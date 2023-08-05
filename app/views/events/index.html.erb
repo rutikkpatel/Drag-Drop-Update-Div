@@ -1,25 +1,27 @@
 <div class="container">
   <p style="color: green"><%= notice %></p>
   <h1 class="my-4">Events List</h1>
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>Event Name</th>
-        <th>Venue</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @events.each do |event| %>
-        <tr>
-          <td><%= event.name %></td>
-          <td><%= event.venue %></td>
-          <td><%= link_to 'Show', event %></td>
-          <td><%= link_to 'Edit', edit_event_path(event) %></td>
-          <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%= link_to 'New Event', new_event_path, class: "btn btn-primary" %>
+  <% @events.each do |event| %>
+    <div class="row event-row border">
+      <div class="col-lg-5">
+        <label class="caption regular">Event Name</label> <br>
+        <%= event.name %>
+      </div>
+      <div class="col-lg-5">
+        <label class="caption regular">Venue</label> <br>
+        <%= event.venue %>
+      </div>
+      <div class="col-lg-2">
+        <strong>Actions</strong> <br>
+        <%= link_to 'Show', event %>
+        <%= link_to 'Edit', edit_event_path(event) %>
+        <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="col">
+      <%= link_to 'New Event', new_event_path, class: "btn btn-primary" %>
+    </div>
+  </div>
 </div>
