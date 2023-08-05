@@ -3,7 +3,7 @@ class EventsController < ApplicationController
 
   # GET /events or /events.json
   def index
-    @events = Event.all
+    @events = Event.order(:priority)
   end
 
   # GET /events/1 or /events/1.json
@@ -45,6 +45,17 @@ class EventsController < ApplicationController
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
+  end
+  
+  # Update Priority column
+  def update_order
+    order = params[:order]
+    order.each_with_index do |event_id, index|
+      event = Event.find(event_id)
+      event.update(priority: index + 1) # Update the priority column in the database
+    end
+  
+    render json: { message: "Event order updated successfully" }, status: :ok
   end
 
   # DELETE /events/1 or /events/1.json
